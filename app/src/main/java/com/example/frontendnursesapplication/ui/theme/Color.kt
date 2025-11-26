@@ -25,20 +25,5 @@ val BlackStucom = Color(0xFF0D0D0D)
 
 val WhiteStucom = Color(0xFFF2F2F2)
 
-val LightBlueWhite = Color(0xFFF1F5F9)
 
-val BlueGray = Color(0xFF334155)
 
-val SoftRed = Color(0xFFD04A4A)
-
-val ColorScheme.focusedTextFieldText
-    @Composable
-    get() = if (isSystemInDarkTheme()) Color.White else Color.Black
-
-val ColorScheme.unfocusedTextFieldText
-    @Composable
-    get() = if (isSystemInDarkTheme()) Color(0xFF94A388) else Color(0xFF475569)
-
-val ColorScheme.textFieldContainer
-    @Composable
-    get() = if (isSystemInDarkTheme()) BlueGray.copy(alpha = 0.6f ) else LightBlueWhite

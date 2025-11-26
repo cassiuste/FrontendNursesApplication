@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.frontendnursesapplication.ui.theme.FrontendNursesApplicationTheme
 import com.example.frontendnursesapplication.views.FindByName
+import com.example.frontendnursesapplication.views.LoginScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,7 +27,7 @@ class MainActivity : ComponentActivity() {
 //                        modifier = Modifier.padding(innerPadding)
 //                    )
 //                }
-                FindByName()
+                LoginScreen()
             }
         }
     }
