@@ -6,7 +6,22 @@
     <string name="clear_response">Clear Response</string>
     <string name="Name">Name</string>
     <string name="Surname">Surname</string>
-    <string name="Email">Email</string>
     <string name="User">User</string>
+    <string name="hospital">Stucom</string>
+    <string name="slogan">Always with you</string>
+    <string name="login">Login</string>
+    <string name="app_logo">HospitalStucom Logo</string>
+    <string name="login_title1">Log in to </string>
+    <string name="account">Don’t have an account?</string>
+    <string name="onlyaccount">account</string>
+    <string name="forgot">Forgot password?</string>
+    <string name="SignUp">Sign up</string>
+    <string name="incorrecto">Email and Password incorrect</string>
+    <string name="correcto">Welcome!</string>
+    <string name="nohaynada">You have put  Email and Password</string>
+
+    <string name="Email">Email</string>
+    <string name="Password">Password</string>
+
 
 </resources>
