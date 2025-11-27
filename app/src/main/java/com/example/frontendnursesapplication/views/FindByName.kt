@@ -32,11 +32,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.frontendnursesapplication.R
 import com.example.frontendnursesapplication.entities.Nurse
 
 @Composable
-fun FindByName(){
+fun FindByName(navController: NavController){
     // Lista de nurses que actuaria como el backend
     val nurses = listOf(
         Nurse("Juan", "Perez", "juan@mail.com", "juan123", "1234"),
@@ -135,6 +136,7 @@ fun FindByName(){
                 }
             }
         }
+        HomeButton(navController)
     }
 }
 
@@ -164,25 +166,21 @@ fun PrintNurse(nurse: Nurse){
 }
 
 @Composable
-fun HomeButtom(){
-    Button(
-        onClick = {
-            navController.navigate("home");
-        },
+fun HomeButton(navController: NavController){
+    Button(onClick = {
+        navController.popBackStack()
+    },
         colors = ButtonDefaults.buttonColors(
             containerColor = colorResource(id = R.color.bluestucom),
-            contentColor = colorResource(id = R.color.whitestucom)
-        ),
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    ) {
-        Text(text = "Home")
+            contentColor = colorResource(id = R.color.whitestucom)),
+        modifier = Modifier.fillMaxWidth().padding(20.dp).padding(bottom = 20.dp)) {
+        Text(text = stringResource(R.string.button_info_return_home))
+
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun FindByNamePreview() {
-    FindByName()
+    // FindByName()
 }
