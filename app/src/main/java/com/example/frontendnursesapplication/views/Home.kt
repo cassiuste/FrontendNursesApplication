@@ -1,5 +1,6 @@
 package com.example.frontendnursesapplication.views
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -12,8 +13,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -28,9 +32,13 @@ fun InitialView(navController: NavHostController) {
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            TopSection()
+            Spacer(modifier = Modifier.height(40.dp))
+
             Text(
                 text = stringResource(R.string.title_init),
-                fontSize = 25.sp,
+                style = MaterialTheme.typography.headlineMedium,
+                fontSize = 22.sp,
                 fontWeight = FontWeight.Bold
             )
 
@@ -45,15 +53,16 @@ fun InitialView(navController: NavHostController) {
 private data class MenuItem(
     val title: String,
     val route: String,
+    val imageRes: Int
 )
 
 @Composable
 fun homeBody(navController: NavHostController){
 
     val menuItems = listOf(
-        MenuItem("Login Enfermer@", "login"),
-        MenuItem("Listado Completo", "listAll"),
-        MenuItem("Buscar Enfermer@", "findByName"),
+        MenuItem("Login Enfermer@", "login", R.drawable.enfermeros),
+        MenuItem("Listado Completo", "listAll", R.drawable.enfermeros2),
+        MenuItem("Buscar Enfermer@", "findByName", R.drawable.searchenfermeros)
     )
 
     LazyVerticalGrid(
@@ -67,6 +76,7 @@ fun homeBody(navController: NavHostController){
             navigationCard(
                 titleCard = item.title,
                 navigationRoute = item.route,
+                imageRes = item.imageRes,
                 navController = navController
             )
         }
@@ -75,7 +85,7 @@ fun homeBody(navController: NavHostController){
 }
 
 @Composable
-fun navigationCard(titleCard: String, navigationRoute: String, navController: NavHostController){
+fun navigationCard(titleCard: String, navigationRoute: String, navController: NavHostController,imageRes: Int){
 
     Card(
         modifier = Modifier.aspectRatio(1f),
@@ -84,13 +94,31 @@ fun navigationCard(titleCard: String, navigationRoute: String, navController: Na
         onClick = {
             navController.navigate(navigationRoute)
         }
+
     ) {
-        Text(
-            text = titleCard,
-            fontSize = 19.sp,
-            fontWeight = FontWeight.SemiBold,
-            textAlign = TextAlign.Center
-        )
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.padding(16.dp)
+        ) {
+
+            Text(
+                text = titleCard,
+                fontSize = 19.sp,
+                fontWeight = FontWeight.SemiBold,
+                textAlign = TextAlign.Center
+            )
+
+
+            Spacer(modifier = Modifier.Companion.height(8.dp))
+
+            Image(
+                painter = painterResource(id = imageRes),
+                contentDescription = titleCard,
+                modifier = Modifier.size(100.dp),
+                contentScale = ContentScale.Crop
+            )
+        }
     }
 
 }

@@ -50,7 +50,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -66,6 +65,7 @@ fun LoginScreen(navController: NavController) {
         Column(
             modifier = Modifier.Companion.fillMaxSize()
         ) {
+
             TopSection()
             Spacer(modifier = Modifier.Companion.height(100.dp))
 
@@ -79,14 +79,14 @@ fun LoginScreen(navController: NavController) {
                     .padding(horizontal = 60.dp)
             ) {
                 LoginSection()
-                Spacer(modifier = Modifier.Companion.height(120.dp))
+                Spacer(modifier = Modifier.Companion.height(100.dp))
 
                 Column(horizontalAlignment = Alignment.Companion.CenterHorizontally) {
                     Text(
                         text = "Or continue with",
                         style = MaterialTheme.typography.labelMedium.copy(color = Color(0xFF64748B))
                     )
-                    Spacer(modifier = Modifier.Companion.height(20.dp))
+                    Spacer(modifier = Modifier.Companion.height(10.dp))
                     Row(
                         modifier = Modifier.Companion.fillMaxWidth(),
                         verticalAlignment = Alignment.Companion.CenterVertically
@@ -106,7 +106,9 @@ fun LoginScreen(navController: NavController) {
                             modifier = Modifier.Companion.weight(1f)
                         ) {
                         }
+
                     }
+                    HomeButton(navController)
                 }
 
             }
@@ -136,6 +138,7 @@ fun titleLogin() {
         Column(
             modifier = Modifier.Companion.wrapContentWidth()
         ) {
+
             Text(
                 text = buildAnnotatedString {
                     withStyle(style = SpanStyle(fontWeight = FontWeight.Companion.SemiBold)) {
@@ -202,7 +205,9 @@ fun titleLogin() {
 
 
 
-    }
+}
+
+
 
 @Composable
 fun LoginSection(){
@@ -443,9 +448,3 @@ fun LoginTextField(
 }
 
 
-//@Preview(showBackground = true)
-//@Composable
-//fun LoginPreview(){
-//    LoginScreen();
-//
-//}
