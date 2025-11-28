@@ -179,5 +179,5 @@ fun HomeButton(navController: NavController){
 @Preview(showBackground = true)
 @Composable
 fun FindByNamePreview() {
-    // FindByName()
+  // FindByName()
 }
