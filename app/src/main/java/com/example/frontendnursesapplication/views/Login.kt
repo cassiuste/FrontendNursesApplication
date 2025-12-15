@@ -55,15 +55,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.frontendnursesapplication.R
-import com.example.frontendnursesapplication.entities.Nurse
 import com.example.frontendnursesapplication.ui.theme.Rubik
-import com.example.frontendnursesapplication.viewmodels.LoginViewModel
+import com.example.frontendnursesapplication.viewmodels.NurseViewModel
 
 
 @Composable
 fun LoginScreen(navController: NavController,
-                loginViewModel: LoginViewModel = LoginViewModel()) {
-
+                nurseViewModel: NurseViewModel = NurseViewModel()
+) {
     Surface {
         Column(
             modifier = Modifier.Companion.fillMaxSize()
@@ -81,7 +80,7 @@ fun LoginScreen(navController: NavController,
                     .fillMaxSize()
                     .padding(horizontal = 60.dp)
             ) {
-                LoginSection(loginViewModel)
+                LoginSection(nurseViewModel)
                 Spacer(modifier = Modifier.Companion.height(100.dp))
 
                 Column(horizontalAlignment = Alignment.Companion.CenterHorizontally) {
@@ -213,9 +212,9 @@ fun titleLogin() {
 
 
 @Composable
-fun LoginSection(loginViewModel: LoginViewModel){
+fun LoginSection(nurseViewModel: NurseViewModel){
 
-    val uiState = loginViewModel.loginState.collectAsState().value
+    val uiState = nurseViewModel.loginState.collectAsState().value
     val emailState = remember { mutableStateOf("") }
     val passwordState = remember { mutableStateOf("") }
 
@@ -263,9 +262,9 @@ fun LoginSection(loginViewModel: LoginViewModel){
                 .fillMaxWidth()
                 .height(40.dp),
             onClick = {
-                loginViewModel.onEmailChange(emailState.value)
-                loginViewModel.onPasswordChange(passwordState.value)
-                loginViewModel.login()
+                nurseViewModel.onEmailChange(emailState.value)
+                nurseViewModel.onPasswordChange(passwordState.value)
+                nurseViewModel.login()
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = if (isSystemInDarkTheme()) bluegray else Color.Companion.Black,
