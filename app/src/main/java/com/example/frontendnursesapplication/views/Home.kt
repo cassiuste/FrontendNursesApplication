@@ -60,7 +60,6 @@ private data class MenuItem(
 fun HomeBody(navController: NavHostController){
 
     val menuItems = listOf(
-        MenuItem("Login Enfermer@", "login", R.drawable.enfermeros),
         MenuItem("Listado Completo", "listAll", R.drawable.enfermeros2),
         MenuItem("Buscar Enfermer@", "findByName", R.drawable.searchenfermeros)
     )

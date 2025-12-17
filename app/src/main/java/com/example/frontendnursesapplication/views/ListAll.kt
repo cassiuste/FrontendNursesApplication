@@ -42,8 +42,8 @@ import com.example.frontendnursesapplication.entities.Nurse
 import com.example.frontendnursesapplication.viewmodels.NurseViewModel
 
 @Composable
-fun AllNursesView (navController: NavHostController) {
-    val nurseViewModel: NurseViewModel = viewModel()
+fun AllNursesView (navController: NavHostController,
+                   nurseViewModel: NurseViewModel) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
