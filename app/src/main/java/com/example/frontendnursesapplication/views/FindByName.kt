@@ -39,7 +39,7 @@ import com.example.frontendnursesapplication.entities.Nurse
 import com.example.frontendnursesapplication.viewmodels.NurseViewModel
 
 @Composable
-fun FindByName(navController: NavController, nurseViewModel: NurseViewModel = viewModel()){
+fun FindByName(navController: NavController, nurseViewModel: NurseViewModel){
     val findByNameState by nurseViewModel.findByNameState.collectAsState()
 
     var search by remember { mutableStateOf("") }

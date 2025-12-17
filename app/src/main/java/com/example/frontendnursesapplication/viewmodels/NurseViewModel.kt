@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.frontendnursesapplication.entities.LoginUiState
 import com.example.frontendnursesapplication.entities.Nurse
 import com.example.frontendnursesapplication.entities.NurseUiState
+import com.example.frontendnursesapplication.entities.RegisterUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,17 +22,20 @@ class NurseViewModel: ViewModel() {
     private val _loginState = MutableStateFlow(LoginUiState())
     val loginState: StateFlow<LoginUiState> get() = _loginState.asStateFlow()
 
+
+    private val _registerState = MutableStateFlow(RegisterUiState())
+    val registerState: StateFlow<RegisterUiState> get() = _registerState.asStateFlow()
+
     init {
-        _uiState.value = NurseUiState(getHardcodedNurses())
+        _uiState.value = NurseUiState(mutableListOf(
+            Nurse("Juan", "Perez", "juan@mail.com", "juan123", "1234"),
+            Nurse("Pepe", "Lopez", "pepe@mail.com", "pepe45", "abcd"),
+            Nurse("Maria", "Gomez", "mariag@mail.com", "mariag", "pass"),
+            Nurse("Mar", "Sanchez", "marg@mail.com", "mar12", "123pass")))
         _findByNameState.value = NurseUiState(nurses = emptyList())
         _loginState.value = LoginUiState("","")
+        _registerState.value = RegisterUiState()
     }
-    private fun getHardcodedNurses() = mutableListOf(
-        Nurse("Juan", "Perez", "juan@mail.com", "juan123", "1234"),
-        Nurse("Pepe", "Lopez", "pepe@mail.com", "pepe45", "abcd"),
-        Nurse("Maria", "Gomez", "mariag@mail.com", "mariag", "pass"),
-        Nurse("Mar", "Sanchez", "marg@mail.com", "mar12", "123pass")
-    )
 
     // actualitzem els valors creant una nova instancia de _uiState
 
@@ -62,7 +66,7 @@ class NurseViewModel: ViewModel() {
             return
         }
 
-        val nurses = getHardcodedNurses()
+        val nurses = _uiState.value.nurses
 
         val results = nurses.filter { nurse ->
             nurse.name.contains(name.trim(), ignoreCase = true)
@@ -90,7 +94,7 @@ class NurseViewModel: ViewModel() {
     }
 
     fun login(){
-        val nurses = getHardcodedNurses()
+        val nurses = _uiState.value.nurses
         val email = loginState.value.email
         val password = loginState.value.password
 
@@ -101,6 +105,20 @@ class NurseViewModel: ViewModel() {
         }
         else{
             _loginState.update { it.copy(errorMessage = true) }
+        }
+    }
+
+    fun register(nurse: Nurse) {
+        val nurses = _uiState.value.nurses
+
+        val exists = nurses.any { it.email == nurse.email }
+        if (exists) {
+            _registerState.update { it.copy(error = true) }
+        } else {
+            _uiState.update {
+                it.copy(nurses = it.nurses + nurse)
+            }
+            _registerState.update { it.copy(success = true) }
         }
     }
 }

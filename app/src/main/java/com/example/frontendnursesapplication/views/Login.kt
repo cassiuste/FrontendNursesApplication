@@ -29,6 +29,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -58,11 +59,12 @@ import androidx.navigation.NavController
 import com.example.frontendnursesapplication.R
 import com.example.frontendnursesapplication.ui.theme.Rubik
 import com.example.frontendnursesapplication.viewmodels.NurseViewModel
+import kotlinx.coroutines.delay
 
 
 @Composable
 fun LoginScreen(navController: NavController,
-                nurseViewModel: NurseViewModel = viewModel()
+                nurseViewModel: NurseViewModel
 ) {
     Surface {
         Column(
@@ -72,7 +74,7 @@ fun LoginScreen(navController: NavController,
             TopSection()
             Spacer(modifier = Modifier.Companion.height(100.dp))
 
-            titleLogin()
+            titleLogin(navController)
 
             Spacer(modifier = Modifier.Companion.height(20.dp))
 
@@ -81,7 +83,7 @@ fun LoginScreen(navController: NavController,
                     .fillMaxSize()
                     .padding(horizontal = 60.dp)
             ) {
-                LoginSection(nurseViewModel)
+                LoginSection(navController, nurseViewModel)
                 Spacer(modifier = Modifier.Companion.height(100.dp))
 
                 Column(horizontalAlignment = Alignment.Companion.CenterHorizontally) {
@@ -111,7 +113,6 @@ fun LoginScreen(navController: NavController,
                         }
 
                     }
-                    HomeButton(navController)
                 }
 
             }
@@ -123,7 +124,7 @@ fun LoginScreen(navController: NavController,
 }
 
 @Composable
-fun titleLogin() {
+fun titleLogin(navController: NavController) {
 
     val uiColor = if (isSystemInDarkTheme()) Color.Companion.White else Color.Companion.Black
     val title1 = stringResource(id = R.string.login_title1)
@@ -192,6 +193,9 @@ fun titleLogin() {
                 style = MaterialTheme.typography.bodySmall,  // más pequeño
                 color = uiColor,
                 modifier = Modifier.Companion.padding(start = 35.dp, top = 8.dp)
+                    .clickable {
+                        navController.navigate("register")
+                    }
             )
         }
 
@@ -213,7 +217,8 @@ fun titleLogin() {
 
 
 @Composable
-fun LoginSection(nurseViewModel: NurseViewModel){
+fun LoginSection(navController: NavController,
+                 nurseViewModel: NurseViewModel){
 
     val uiState = nurseViewModel.loginState.collectAsState().value
     val emailState = remember { mutableStateOf("") }
@@ -286,6 +291,13 @@ fun LoginSection(nurseViewModel: NurseViewModel){
 
         if (uiState.success) {
             Toast.makeText(context, stringResource(R.string.correcto), Toast.LENGTH_SHORT).show()
+
+            LaunchedEffect(Unit) {
+                delay(3000)
+                navController.navigate("start") {
+                    popUpTo("login") { inclusive = true }
+                }
+            }
         }
     }
 }
